@@ -6,3 +6,4 @@ class Automat(PrzechowywaczMonet):
         pM = PrzechowywaczMonet()
         pM.wrzućMonety('1zł',3)
         pM.pokażMonety()
+        print(pM._nominały)
