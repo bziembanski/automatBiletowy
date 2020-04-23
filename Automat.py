@@ -1,4 +1,5 @@
 from PrzechowywaczMonet import PrzechowywaczMonet
+from Bilet import Bilet
 class Automat(PrzechowywaczMonet):
     def __init__(self):
         super().__init__()
