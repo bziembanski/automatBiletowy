@@ -1,3 +1,5 @@
-*.py[cod]
 _pycache_/
+*.pyc
+*.pyd
+*.pyo
 *.mp4
