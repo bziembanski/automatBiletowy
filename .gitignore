@@ -1,5 +1,3 @@
-#ignore pyc files
-*.pyc 
-_pycache_
-#all mp4 files
+*.py[cod]
+_pycache_/
 *.mp4
