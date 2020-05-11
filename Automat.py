@@ -1,29 +1,72 @@
-class Bilet():
-    def __init__(self, długość, typ):
-        self.długość = długość
-        self.typ=typ
-    def wyświetlBilet(self):
-        print(f"Bilet {self.typ} {self.długość}-minutowy")
+from math import floor
+
+
+class Bilet:
+    def __init__(self, dlugosc, typ):
+        self.dlugosc = dlugosc
+        self.typ = typ
+
+    def wyswietlBilet(self):
+        print(f"Bilet {self.typ} {self.dlugosc}-minutowy")
 
 
 class PrzechowywaczMonet:
     def __init__(self):
-        self._nominały = {'1gr': 0, '2gr': 0, '5gr': 0, '10gr': 0, '20gr': 0, '50gr': 0,
-                    '1zł': 0, '2zł': 0, '5zł': 0, '10zł': 0, '20zł': 0, '50zł': 0}
-    
-    def wrzućMonety(self, moneta, ilosc):
-        if moneta in self._nominały:
-            self._nominały[moneta] += ilosc
+        self._nominaly = {1: 0, 2: 0, 5: 0, 10: 0, 20: 0, 50: 0,
+                          100: 0, 200: 0, 500: 0, 1000: 0, 2000: 0, 5000: 0}
+
+    def wrzucMonety(self, moneta, ilosc):
+        if moneta in self._nominaly:
+            self._nominaly[moneta] += ilosc
         else:
             print(f'Automat nie obsługuje nominału {moneta}')
 
-    def pokażMonety(self):
-        for i, j in self._nominały.items():
-            print(f'{i}\t{j}')
+    def napelnij(self):
+        for i in self._nominaly:
+            self._nominaly[i] = 100
+
+    def pokazMonety(self):
+        for i, j in self._nominaly.items():
+            print(f'{i / 100}zł\t{j}')
+
+    def lacznaKwota(self, dic=None):
+        suma = 0
+        if dic is None:
+            dic = self._nominaly
+        for nominal, ilosc in dic.items():
+            suma += nominal * ilosc
+        return suma / 100
+
 
 class Automat(PrzechowywaczMonet):
     def __init__(self):
         super().__init__()
-        pM = PrzechowywaczMonet()
-        pM.wrzućMonety('1zł',3)
-        pM.pokażMonety()
+
+    def wydajReszte(self, kwota):
+        doWydania = int(kwota * 100)  # zamiana na grosze
+        if self.lacznaKwota() < kwota:
+            return False
+        else:
+            nominaly = [*self._nominaly]
+            nominaly.reverse()
+            # print(nominaly)
+            reszta = dict()
+            i = 0
+            while doWydania > 0 and i < len(nominaly):
+                if doWydania >= nominaly[i]:
+                    ile = floor(doWydania / nominaly[i])
+                    if ile > self._nominaly[nominaly[i]]:
+                        ile = self._nominaly[nominaly[i]]
+                    doWydania = round(100 * (doWydania - (nominaly[i] * ile))) / 100
+                    reszta[nominaly[i]] = ile
+                    self._nominaly[nominaly[i]] -= ile
+                i += 1
+            return reszta
+
+
+a = Automat()
+a.napelnij()
+a.pokazMonety()
+reszta = a.wydajReszte(4.23)
+print(a.lacznaKwota(reszta))
+a.pokazMonety()
