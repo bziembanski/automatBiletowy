@@ -1,5 +1,5 @@
 
-## **Automat biletowy MPK(z możliwością łamania kodu przez komputer)**
+## **Automat biletowy MPK**
 
 **Opis zadania**
 
