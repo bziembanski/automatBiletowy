@@ -1,5 +1,3 @@
-from math import floor
-
 LISTA_NOMINALOW = [1, 2, 5, 10, 20, 50,
                    100, 200, 500, 1000, 2000, 5000]
 
@@ -103,7 +101,6 @@ class Automat:
         if reszta == 0:
             for nominal, ilosc in self._wrzucone.items():
                 self._zawartosc[nominal] += ilosc
-            bilety = self._bilety.copy()
             self._bilety = []
             return {}
         else:
@@ -123,7 +120,6 @@ class Automat:
 
 def main():
     a = Automat(LISTA_NOMINALOW)
-    a.napelnij(1)
 
     a.dodaj_bilet(Bilet(50, 'normalny', 400))
     a.dodaj_bilet(Bilet(30, 'normalny', 159))
