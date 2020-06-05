@@ -25,11 +25,18 @@ class Automat:
         self._bilety = []
         self._wrzucone = {x: 0 for x in self._nominaly}
 
-    def wrzuc_monety(self, moneta, ilosc):
-        if moneta in self._wrzucone:
-            self._wrzucone[moneta] += ilosc
+    def wrzuc_monety(self, moneta, ilosc=1):
+        if ilosc > 0 and ilosc == int(ilosc):
+            if moneta in self._wrzucone:
+                self._wrzucone[moneta] += ilosc
+                return True
+            else:
+                print(f'Automat nie obsługuje nominału {moneta}!')
+                return False
         else:
-            print(f'Automat nie obsługuje nominału {moneta}')
+            print('Wprowadz ilosc jako dodatnią liczbę całkowitą!')
+            return False
+
 
     def napelnij(self, ile=100):
         for i in self._zawartosc:
@@ -115,12 +122,13 @@ class Automat:
                     self._zawartosc[n] += self._wrzucone[n]
                     self._zawartosc[n] -= reszta_dict[n]
                 self._bilety = []
+                self._wrzucone = {x: 0 for x in self._nominaly}
                 return reszta_dict
 
 
 def main():
     a = Automat(LISTA_NOMINALOW)
-
+    a.napelnij(1)
     a.dodaj_bilet(Bilet(50, 'normalny', 400))
     a.dodaj_bilet(Bilet(30, 'normalny', 159))
     a.wrzuc_monety(500, 1)
