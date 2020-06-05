@@ -67,7 +67,7 @@ class Automat:
     def do_zaplaty(self):
         return sum(bilet.cena for bilet in self._bilety)
 
-    def czy_moge_wydac(self):
+    def wydaj_reszte(self):
         max_i = 999999999
         coins_used = []
         min_coins = []
@@ -107,7 +107,7 @@ class Automat:
             self._bilety = []
             return {}
         else:
-            czy_moge, reszta_dict = self.czy_moge_wydac()
+            czy_moge, reszta_dict = self.wydaj_reszte()
             if czy_moge == 0:
                 print("Tylko odliczona kwota")
                 wrzucone = self._wrzucone.copy()
