@@ -1,5 +1,8 @@
 LISTA_NOMINALOW = [1, 2, 5, 10, 20, 50,
                    100, 200, 500, 1000, 2000, 5000]
+DLUGOSC_BILETU_MINUTY = [20, 40, 60]
+CENA_BILETU = [280, 380, 500]
+TYP_BILETU = ["normalny", "ulgowy"]
 
 
 class Bilet:
@@ -36,7 +39,6 @@ class Automat:
         else:
             print('Wprowadz ilosc jako dodatnią liczbę całkowitą!')
             return False
-
 
     def napelnij(self, ile=100):
         for i in self._zawartosc:
