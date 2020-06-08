@@ -12,10 +12,13 @@ class Bilet:
         self.cena = cena
 
     def wyswietl_bilet(self):
-        print(f"Bilet {self.typ} {self.dlugosc}-minutowy - {self.cena / 100}")
+        print(str(self))
 
     def __eq__(self, other):
         return self.dlugosc == other.dlugosc and self.typ == other.typ and self.cena == other.cena
+
+    def __str__(self):
+        return f"Bilet {self.typ} {self.dlugosc}-minutowy"
 
     def __repr__(self):
         return f'Bilet({self.dlugosc}, "{self.typ}", {self.cena})'
@@ -44,10 +47,14 @@ class Automat:
         for i in self._zawartosc:
             self._zawartosc[i] = ile
 
-    def pokaz_monety(self, wrzucone=False):
-        dic = self._wrzucone if wrzucone else self._zawartosc
+    def pokaz_monety(self, dic=None):
+        pokaz_str = ''
+        if dic is None:
+            dic = self._wrzucone
         for i, j in dic.items():
-            print(f'{i / 100}zł\t{j}')
+            if j != 0:
+                pokaz_str += '{:2.2f}zł: {}\t'.format(i / 100, j)
+        return pokaz_str
 
     def suma_monet(self, dic=None):
         suma = 0
@@ -70,6 +77,9 @@ class Automat:
     def usun_bilet(self, bilet):
         if bilet in self._bilety:
             self._bilety.remove(bilet)
+
+    def usun_bilet_all(self):
+        self._bilety.clear()
 
     def do_zaplaty(self):
         return sum(bilet.cena for bilet in self._bilety)
@@ -104,20 +114,23 @@ class Automat:
 
     def zaplac(self):
         if self.suma_monet() < self.do_zaplaty():
-            print("Wprowadzono niepełną kwotę!")
+            # print("Wprowadzono niepełną kwotę!")
             return {}
         reszta = self.suma_monet() - self.do_zaplaty()
         if reszta == 0:
             for nominal, ilosc in self._wrzucone.items():
                 self._zawartosc[nominal] += ilosc
-            self._bilety = []
-            return {}
+            self._wrzucone = {x: 0 for x in self._nominaly}
+            self._bilety.clear()
+            print(self._bilety)
+            return self._wrzucone
         else:
             czy_moge, reszta_dict = self.wydaj_reszte()
             if czy_moge == 0:
-                print("Tylko odliczona kwota")
+                # print("Tylko odliczona kwota")
                 wrzucone = self._wrzucone.copy()
                 self._wrzucone = {x: 0 for x in self._nominaly}
+                self._bilety.clear()
                 return wrzucone
             else:
                 for n in self._nominaly:
