@@ -132,7 +132,7 @@ class AutomatApplication(tk.Frame):
         updateVar(self.do_zaplaty, self.do_zaplaty_string)
 
     def zaplac(self):
-        if self.do_zaplaty.get()>0:
+        if self.do_zaplaty.get() > 0:
             wrzucone = self.automat._wrzucone.copy()
             bilety = self.automat._bilety.copy()
             zaplacone = self.automat.zaplac()
@@ -158,12 +158,13 @@ class AutomatApplication(tk.Frame):
                     for b in bilety:
                         zakupione += f'\n{b}'
                     tk_messagebox.showinfo("Zakupy pomyślne",
-                                           f"Zakupione bilety:{zakupione}\nŁączna kwota: {self.do_zaplaty_string.get()}\nReszta:{self.automat.suma_monet(zaplacone)/100:.2f}zł")
+                                           f"Zakupione bilety:{zakupione}\nŁączna kwota: {self.do_zaplaty_string.get()}\nReszta:{self.automat.suma_monet(zaplacone) / 100:.2f}zł")
                     self.zeruj_zakupy()
 
 
         else:
             tk_messagebox.showwarning("Wybierz bilety!", "Proszę wybrać bilety do zakupu!")
+
 
 t = tk.Tk()
 t.title('Automat biletowy')
