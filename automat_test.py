@@ -9,7 +9,7 @@ class AutomatTest(unittest.TestCase):
         a.dodaj_bilet(b)
         a.wrzuc_monety(200)
         a.wrzuc_monety(20, 2)
-        self.assertEqual(a.zaplac(), {})
+        self.assertEqual(a.zaplac(), {x: 0 for x in a.nominaly})
 
     def test_udane_wydanie_reszty(self):
         a = automat.Automat(automat.LISTA_NOMINALOW)
@@ -50,7 +50,7 @@ class AutomatTest(unittest.TestCase):
         a.wrzuc_monety(100)
         a.wrzuc_monety(10)
         zwrocone = a.zaplac()
-        self.assertEqual(zwrocone, {})
+        self.assertEqual(zwrocone, {x: 0 for x in a.nominaly})
 
     def test_ujemna_ilosc_monet(self):
         a = automat.Automat(automat.LISTA_NOMINALOW)
