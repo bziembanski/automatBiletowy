@@ -5,7 +5,12 @@ Classes:
         Ta klasa definiuje okno w którym kupujący wrzuca monety
     AutomatApplication
         Ta klasa definiuje cały interfejs służący do obsługi automatu.
+
+Functions:
+    main()
+        Uruchamia się gdy moduł zostanie uruchomiony jako skrypt.
 """
+import sys
 import tkinter as tk
 import tkinter.font as tk_font
 import tkinter.messagebox as tk_messagebox
@@ -167,18 +172,18 @@ class AutomatApplication(tk.Frame):
         Metoda wykonująca metodę 'zaplac' obiektu automat.
     """
 
-    def __init__(self, master=None, napelnij=0):
+    def __init__(self, master=None, ile_monet=100):
         """
         Inicjalizuje okno aplikacji oraz widgety zawierające się w nim.
 
         :param master: Rodzic okna
-        :param napelnij: Liczba początkowa monet w automacie.
+        :param ile_monet: Liczba początkowa monet w automacie.
         """
         tk.Frame.__init__(self, master)
         self.grid(sticky=tk.N + tk.S + tk.E + tk.W)
         self.wrzucanie_monet = False
         self.automat = automat.Automat(automat.LISTA_NOMINALOW)
-        self.automat.napelnij(napelnij)
+        self.automat.napelnij(ile_monet)
         self.do_zaplaty = tk.IntVar(value=self.automat.do_zaplaty())
         self.wplacone = tk.IntVar(value=self.automat.suma_monet())
         self.do_zaplaty_string = tk.StringVar(
@@ -337,16 +342,31 @@ class AutomatApplication(tk.Frame):
                                       "Proszę wybrać bilety do zakupu!")
 
 
-t = tk.Tk()
-t.title('Automat biletowy')
-a = AutomatApplication(t, 2)
-t.resizable(False, False)
-t.update_idletasks()
-width = t.winfo_width()
-height = t.winfo_height()
-x = (t.winfo_screenwidth() // 2) - (width // 2)
-y = (t.winfo_screenheight() // 2) - (height // 2)
-t.geometry('{}x{}+{}+{}'.format(width, height, x, y))
+def main():
+    """
+    Uruchamia się gdy moduł zostanie uruchomiony jako skrypt.
+    Inicjalizuje główne okno, oraz parsuje argument z wywołania, w razie błędów
+    nie bierze argumentu pod uwagę.
+    """
+    ile_monet = 0
+    if len(sys.argv) == 2:
+        ile_monet = sys.argv[1]
+    t = tk.Tk()
+    t.title('Automat biletowy')
+    try:
+        ile_monet = int(ile_monet)
+        a = AutomatApplication(t, ile_monet)
+    except ValueError:
+        a = AutomatApplication(t)
+    t.resizable(False, False)
+    t.update_idletasks()
+    width = t.winfo_width()
+    height = t.winfo_height()
+    x = (t.winfo_screenwidth() // 2) - (width // 2)
+    y = (t.winfo_screenheight() // 2) - (height // 2)
+    t.geometry('{}x{}+{}+{}'.format(width, height, x, y))
+    a.mainloop()
 
-# a.master.title('Automat biletowy')
-a.mainloop()
+
+if __name__ == "__main__":
+    main()
