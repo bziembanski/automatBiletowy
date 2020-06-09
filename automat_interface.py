@@ -348,7 +348,7 @@ def main():
     Inicjalizuje główne okno, oraz parsuje argument z wywołania, w razie błędów
     nie bierze argumentu pod uwagę.
     """
-    ile_monet = 0
+    ile_monet = ""
     if len(sys.argv) == 2:
         ile_monet = sys.argv[1]
     t = tk.Tk()
