@@ -1,4 +1,5 @@
-"""Ten moduł zawiera interfejs automatu biletowego z modułu 'automat'
+"""Ten moduł zawiera interfejs automatu biletowego z modułu 'automat'.
+    Pozwala w pełni symulować działanie automatu biletowego z modułu 'automat'.
 
 Classes:
     OknoMonety
@@ -351,21 +352,21 @@ def main():
     ile_monet = ""
     if len(sys.argv) == 2:
         ile_monet = sys.argv[1]
-    t = tk.Tk()
-    t.title('Automat biletowy')
+    main_window = tk.Tk()
+    main_window.title('Automat biletowy')
     try:
         ile_monet = int(ile_monet)
-        a = AutomatApplication(t, ile_monet)
+        automat_biletowy = AutomatApplication(main_window, ile_monet)
     except ValueError:
-        a = AutomatApplication(t)
-    t.resizable(False, False)
-    t.update_idletasks()
-    width = t.winfo_width()
-    height = t.winfo_height()
-    x = (t.winfo_screenwidth() // 2) - (width // 2)
-    y = (t.winfo_screenheight() // 2) - (height // 2)
-    t.geometry('{}x{}+{}+{}'.format(width, height, x, y))
-    a.mainloop()
+        automat_biletowy = AutomatApplication(main_window)
+    main_window.resizable(False, False)
+    main_window.update_idletasks()
+    width = main_window.winfo_width()
+    height = main_window.winfo_height()
+    x_pos = (main_window.winfo_screenwidth() // 2) - (width // 2)
+    y_pos = (main_window.winfo_screenheight() // 2) - (height // 2)
+    main_window.geometry('{}x{}+{}+{}'.format(width, height, x_pos, y_pos))
+    automat_biletowy.mainloop()
 
 
 if __name__ == "__main__":

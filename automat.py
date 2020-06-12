@@ -1,4 +1,4 @@
-"""Ten moduł symuluje pracę automatu biletowego.
+"""Ten moduł zawiera logikę pozwalającą na symulację pracy automatu biletowego.
 
 Classes:
     Bilet
