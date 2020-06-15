@@ -55,12 +55,12 @@ class AutomatTest(unittest.TestCase):
     def test_ujemna_ilosc_monet(self):
         a = automat.Automat(automat.LISTA_NOMINALOW)
         check = a.wrzuc_monety(1, -2)
-        self.assertEqual(check, False)
+        self.assertFalse(check)
 
     def test_niecalkowita_ilosc_monet(self):
         a = automat.Automat(automat.LISTA_NOMINALOW)
         check = a.wrzuc_monety(1, 2.5)
-        self.assertEqual(check, False)
+        self.assertFalse(check)
 
 
 if __name__ == '__main__':
