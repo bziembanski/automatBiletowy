@@ -22,7 +22,3 @@
 5. Zakup dwóch różnych biletów naraz - cena powinna być sumą.
 6. Dodanie biletu, wrzucenie kilku monet, dodanie drugiego biletu, wrzucenie pozostałych monet, zakup za odliczoną kwotę - oczekiwany brak reszty (wrzucone monety nie zerują się po dodaniu biletu).
 7. Próba wrzucenia ujemnej oraz niecałkowitej liczby monet (oczekiwany komunikat o błędzie).
-
-
-**link do github:**
-https://github.com/bziembanski/js-automatBiletowy
